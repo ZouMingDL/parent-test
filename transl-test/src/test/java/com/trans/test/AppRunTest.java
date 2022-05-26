@@ -8,6 +8,6 @@ public class AppRunTest {
 
     @Test
     public void test01(){
-
+        System.out.println("aaaaa");
     }
 }
