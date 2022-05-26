@@ -8,6 +8,8 @@ public class AppRunTest {
 
     @Test
     public void test01(){
+        System.out.println("adsada");
 
+        System.out.println("bbb");
     }
 }
