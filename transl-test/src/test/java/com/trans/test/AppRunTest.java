@@ -10,7 +10,7 @@ public class AppRunTest {
     public void test01(){
         System.out.println("aaaaa");
         System.out.println("adsada");
-
+        System.out.println("adadada");
         System.out.println("bbb");
     }
 }
