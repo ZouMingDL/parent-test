@@ -8,9 +8,17 @@ public class AppRunTest {
 
     @Test
     public void test01(){
-        System.out.println("aaaaa");
-        System.out.println("adsada");
-        System.out.println("adadada");
-        System.out.println("bbb");
+        System.out.println(get());
+    }
+
+    public String get(){
+        String str ;
+        try {
+            str = "1";
+        }catch (Exception e){
+            str = "2";
+            return str;
+        }
+        return str;
     }
 }
