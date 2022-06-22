@@ -63,12 +63,6 @@ public class AppRunTest {
             }
         }
         return file1;
-        ArrayList<Object> objects = new ArrayList<>();
-        objects.add(1);
-        objects.add(2);
-        objects.add(3);
-        String join = StrUtil.join(",", objects);
-        System.out.println(join);
     }
 
     public String get(){
