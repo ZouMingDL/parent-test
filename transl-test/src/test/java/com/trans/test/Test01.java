@@ -46,9 +46,20 @@ public class Test01 {
 
     @Test
     public void test03(){
-        String a = "abc";
-        String b = "aba";
-        System.out.println(a.compareTo(b));
-        System.out.println(a.length());
+        String str1 = new String("str")+new String("01");
+        str1.intern();
+        String str01 = new String("str01");
+        String str2 = "str01";
+        System.out.println(str2==str1);
+        System.out.println(str01==str2);
+    }
+
+    @Test
+    public void test04(){
+        String s1 = "abc";
+        String s2 = "abc";
+        String s3 = new String("abc"); //不走常量池
+        System.out.println(s1 == s2); //true
+        System.out.println(s1 == s3); //false
     }
 }
