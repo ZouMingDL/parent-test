@@ -1,8 +1,11 @@
 package com.trans.test;
 
+import cn.hutool.core.util.DesensitizedUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Date;
 
 /**
  * @Author: ZouJiaJun
@@ -61,5 +64,22 @@ public class Test01 {
         String s3 = new String("abc"); //不走常量池
         System.out.println(s1 == s2); //true
         System.out.println(s1 == s3); //false
+    }
+
+    @Test
+    public void test05(){
+        String phone = "17713419875";
+        String id = "511621199607222176";
+        String s = DesensitizedUtil.mobilePhone(phone);
+        String s1 = DesensitizedUtil.idCardNum(id, 1, 1);
+        System.out.println(s);
+        System.out.println(s1);
+    }
+
+    @Test
+    public void test06(){
+        int x = 10;
+        x = x++ + x--;
+        System.out.println(x);
     }
 }
