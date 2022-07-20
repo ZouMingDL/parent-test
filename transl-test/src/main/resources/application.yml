@@ -2,6 +2,13 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: transl-test
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 90682618-8ba4-406f-aa05-b3fd0a68fa71
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.123.130:3306/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
