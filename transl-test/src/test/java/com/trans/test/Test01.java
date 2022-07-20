@@ -1,10 +1,15 @@
 package com.trans.test;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.DesensitizedUtil;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -78,8 +83,26 @@ public class Test01 {
 
     @Test
     public void test06(){
-        int x = 10;
-        x = x++ + x--;
-        System.out.println(x);
+        Calendar instance = Calendar.getInstance();
+        Date date = new Date();
+        instance.setTime(date);
+        System.out.println(DateUtil.formatDateTime(date));
+        instance.add(Calendar.HOUR,72);
+        System.out.println("sa：" + instance.getTime());
+        String s = DateUtil.formatDateTime(instance.getTime());
+        System.out.println(s);
+    }
+    @Test
+    public void test07(){
+        BigInteger zero = BigInteger.ZERO;
+        System.out.println(BigInteger.ZERO);
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Integer.MIN_VALUE);
+        System.out.println(BigInteger.ZERO);
+
+
+
+
+
     }
 }
