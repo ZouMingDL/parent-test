@@ -4,8 +4,10 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.DesensitizedUtil;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.trans.entity.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.openjdk.jol.info.ClassLayout;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
@@ -99,10 +101,9 @@ public class Test01 {
         System.out.println(Integer.MAX_VALUE);
         System.out.println(Integer.MIN_VALUE);
         System.out.println(BigInteger.ZERO);
-
-
-
-
-
+    }
+    //查看object对象
+    public static void main(String[] args) {
+        System.out.println(ClassLayout.parseInstance(new Student()).toPrintable());
     }
 }

@@ -1,6 +1,7 @@
 package com.trans.entity;
 
 import lombok.Data;
+import org.openjdk.jol.info.ClassLayout;
 
 import java.io.Serializable;
 
@@ -10,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class Student implements Serializable {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
