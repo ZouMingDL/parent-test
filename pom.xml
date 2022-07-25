@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <description>测试父工程</description>
     <modules>
-        <module>transl-test</module>
+        <module>transl</module>
     </modules>
 
     <properties>
