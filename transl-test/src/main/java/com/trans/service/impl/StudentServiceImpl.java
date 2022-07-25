@@ -1,10 +1,12 @@
 package com.trans.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trans.entity.Student;
 import com.trans.mapper.StudentMapper;
 import com.trans.service.IStudentService;
+import com.trans.until.ChineseUntil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +33,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
         Student student = Student.builder()
                 .stuId(id < max.getStuId()? max.getStuId()+1:id)
-                .age(25)
+                .age(RandomUtil.randomInt(6,24))
                 .classId(2)
-                .name("张珊")
+                .name(ChineseUntil.getRandomChineseName())
                 .build();
         this.save(student);
         return student;

@@ -3,8 +3,10 @@ package com.trans.test;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.DesensitizedUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.trans.entity.Student;
+import com.trans.until.ChineseUntil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.openjdk.jol.info.ClassLayout;
@@ -102,7 +104,9 @@ public class Test01 {
         System.out.println(i);
     }
     //查看object对象
-//    public static void main(String[] args) {
-//        System.out.println(ClassLayout.parseInstance(new Student()).toPrintable());
-//    }
+    public static void main(String[] args) {
+        //System.out.println(ClassLayout.parseInstance(new Student()).toPrintable());
+        System.out.println(ChineseUntil.getRandomChineseName());
+        System.out.println(RandomUtil.randomInt(1,20));
+    }
 }
