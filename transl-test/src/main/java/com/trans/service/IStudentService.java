@@ -13,5 +13,5 @@ import com.trans.entity.Student;
 
 public interface IStudentService extends IService<Student> {
 
-    Student insertStudent();
+    Student insertStudent(Integer id);
 }

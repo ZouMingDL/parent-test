@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Student implements Serializable {
 
     @TableId
-    private int id;
+    private Integer stuId;
 
     private String name;
 

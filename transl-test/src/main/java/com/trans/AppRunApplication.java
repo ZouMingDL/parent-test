@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableCaching
 @EnableDiscoveryClient
-@MapperScan("com.trans.mapper.*")
+@MapperScan("com.trans.mapper")
 @Slf4j
 public class AppRunApplication {
     public static void main(String[] args) {
