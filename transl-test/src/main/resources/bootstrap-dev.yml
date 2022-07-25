@@ -13,8 +13,8 @@ spring:
         namespace: 90682618-8ba4-406f-aa05-b3fd0a68fa71
         file-extension: yaml #设置为置定位件后缀为yaml
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.123.130:3306/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
@@ -32,7 +32,15 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     filters: stat,wall,slf4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-  redis:
-    host: localhost
-    port: 6379
-    database: 0
+
+mybatis-plus:
+  type-aliases-package: com.trans.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 10
+    default-statement-timeout: 30
+
+redis:
+  host: localhost
+  port: 6379
+  database: 0

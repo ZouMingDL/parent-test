@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    com.trans.*: debug  #配置日志输入等级以及对应得日志输出
+
+config:
+  test: 123

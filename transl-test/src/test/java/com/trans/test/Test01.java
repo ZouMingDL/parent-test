@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.openjdk.jol.info.ClassLayout;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
@@ -96,14 +97,12 @@ public class Test01 {
     }
     @Test
     public void test07(){
-        BigInteger zero = BigInteger.ZERO;
-        System.out.println(BigInteger.ZERO);
-        System.out.println(Integer.MAX_VALUE);
-        System.out.println(Integer.MIN_VALUE);
-        System.out.println(BigInteger.ZERO);
+        BigDecimal bigDecimal = new BigDecimal(0.01);
+        int i = bigDecimal.compareTo(new BigDecimal(BigInteger.ZERO));
+        System.out.println(i);
     }
     //查看object对象
-    public static void main(String[] args) {
-        System.out.println(ClassLayout.parseInstance(new Student()).toPrintable());
-    }
+//    public static void main(String[] args) {
+//        System.out.println(ClassLayout.parseInstance(new Student()).toPrintable());
+//    }
 }
