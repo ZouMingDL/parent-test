@@ -5,8 +5,10 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.trans.dto.TestDTO;
 import com.trans.entity.Student;
 import com.trans.until.ChineseUntil;
+import com.trans.until.TwoPhaseTermination;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.openjdk.jol.info.ClassLayout;
@@ -16,6 +18,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: ZouJiaJun
@@ -105,8 +109,12 @@ public class Test01 {
     }
     //查看object对象
     public static void main(String[] args) {
-        //System.out.println(ClassLayout.parseInstance(new Student()).toPrintable());
-        System.out.println(ChineseUntil.getRandomChineseName());
-        System.out.println(RandomUtil.randomInt(1,20));
+        System.out.println(
+                ClassLayout.parseInstance(new TestDTO()).toPrintable()
+        );
     }
+
+
+
+
 }
