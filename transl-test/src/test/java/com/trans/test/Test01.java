@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.trans.dto.TestDTO;
 import com.trans.entity.Student;
@@ -16,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -106,12 +109,56 @@ public class Test01 {
         BigDecimal bigDecimal = new BigDecimal(0.01);
         int i = bigDecimal.compareTo(new BigDecimal(BigInteger.ZERO));
         System.out.println(i);
+        String url = "https://shigongbang.obs.cn-east-3.myhuaweicloud.com:443/contract%2F20220821616565566855834.jpg";
+        String replace = url.replace("%2F", "/");
+        System.out.println(replace);
     }
+
+    @Test
+    public void test08(){
+        Boolean a = false;
+        System.out.println(a);
+    }
+
+
+
     //查看object对象
-    public static void main(String[] args) {
-        System.out.println(
-                ClassLayout.parseInstance(new TestDTO()).toPrintable()
-        );
+//    public static void main(String[] args) {
+////        String url = "https://shigongbang.obs.cn-east-3.myhuaweicloud.com:443/contract/20220821616565566855834.jpg";
+////        String replace = url.replace("%2F", "/");
+////        System.out.println(replace);
+////        StringBuilder stringBuilder = new StringBuilder();
+////        if(StrUtil.isNotBlank(stringBuilder)){
+////            System.out.println(1);
+////        }else {
+////            System.out.println(2);
+////        }
+////        int k = 0;
+////        for (int i = 0;i<5;i++){
+////            if(k == 4){
+////                stringBuilder.append("1");
+////            }else {
+////                stringBuilder.append("1,");
+////            }
+////            k++;
+////        }
+////        System.out.println(stringBuilder);
+//
+//    }
+    public static void main(String[] args) throws URISyntaxException {
+        System.out.println(getIP(new URI("http://www.baidu.com/system/verList")));
+        System.out.println(getIP(new URI("https://gateway.jingyingbang.com/zjkj-contract/v1/contract/signCallBack")));
+        System.out.println(getIP(new URI("http://127.0.0.1:9040/system/verList?loginName=1&password=AD07FB25AA2D3A9F96EE12F25E0BE902")));
+    }
+
+    private static URI getIP(URI uri) {
+        URI effectiveURI = null;
+        try {
+            effectiveURI = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), null, null, null);
+        } catch (Throwable var4) {
+            effectiveURI = null;
+        }
+        return effectiveURI;
     }
 
 

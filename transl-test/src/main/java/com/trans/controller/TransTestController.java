@@ -29,4 +29,10 @@ public class TransTestController {
 
         return R.success(studentServiceImpl.insertStudent(id));
     }
+
+    @GetMapping("/test")
+    public R test01() {
+
+        return R.success(studentServiceImpl.getObs());
+    }
 }

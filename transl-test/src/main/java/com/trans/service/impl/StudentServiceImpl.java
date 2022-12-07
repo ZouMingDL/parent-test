@@ -7,7 +7,9 @@ import com.trans.entity.Student;
 import com.trans.mapper.StudentMapper;
 import com.trans.service.IStudentService;
 import com.trans.until.ChineseUntil;
+import com.trans.until.ObsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 
@@ -25,6 +27,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    private ObsProperties obsProperties;
+
     @Override
     public Student insertStudent(Integer id) {
         Student max = studentMapper.selectOne(Wrappers.lambdaQuery(Student.class)
@@ -39,5 +44,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 .build();
         this.save(student);
         return student;
+    }
+
+    @Override
+    public ObsProperties.OssSecret getObs() {
+        ObsProperties.OssSecret huawei = obsProperties.getOss().get(ObsProperties.Type.HUAWEI);
+        System.out.println(huawei);
+        return huawei;
     }
 }

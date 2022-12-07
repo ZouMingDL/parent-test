@@ -2,6 +2,7 @@ package com.trans.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trans.entity.Student;
+import com.trans.until.ObsProperties;
 
 /**
  * @Author: ZouJiaJun
@@ -14,4 +15,6 @@ import com.trans.entity.Student;
 public interface IStudentService extends IService<Student> {
 
     Student insertStudent(Integer id);
+
+    ObsProperties.OssSecret getObs();
 }
