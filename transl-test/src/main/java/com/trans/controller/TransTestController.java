@@ -2,6 +2,9 @@ package com.trans.controller;
 
 import com.trans.service.IStudentService;
 import com.trans.until.R;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RefreshScope
 @RequestMapping("v1/trans")
+@Api(tags = "测试数据库")
 public class TransTestController {
 
     @Autowired
@@ -25,12 +29,14 @@ public class TransTestController {
     private String test;
 
     @GetMapping("/test/{id}")
-    public R test(@PathVariable("id") Integer id) {
+    @ApiOperation("根据ID插入学生信息")
+    public R test(@ApiParam("id编号") @PathVariable("id") Integer id) {
 
         return R.success(studentServiceImpl.insertStudent(id));
     }
 
     @GetMapping("/test")
+    @ApiOperation("获取OBS信息")
     public R test01() {
 
         return R.success(studentServiceImpl.getObs());

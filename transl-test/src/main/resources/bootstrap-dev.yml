@@ -44,3 +44,12 @@ redis:
   host: localhost
   port: 6379
   database: 0
+
+knife4j:
+  basic:
+    enable: true
+    username: admin
+    password: admin
+  enable: true #开启增强
+  setting:
+    language: zh-CN
