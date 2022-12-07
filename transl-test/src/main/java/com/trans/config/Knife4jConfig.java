@@ -29,7 +29,7 @@ import java.util.List;
 @EnableKnife4j
 @EnableSwagger2WebMvc
 @Import(BeanValidatorPluginsConfiguration.class)
-public class knife4jConfig {
+public class Knife4jConfig {
 
     @Value("${server.port}")
     private String port;

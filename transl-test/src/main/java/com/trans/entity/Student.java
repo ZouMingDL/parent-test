@@ -13,7 +13,6 @@ import java.io.Serializable;
  * @author ZouMing
  */
 @Data
-@Builder
 @TableName(value = "student")
 public class Student implements Serializable {
 
