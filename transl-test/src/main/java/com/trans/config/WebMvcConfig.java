@@ -27,7 +27,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         if (!filePath.endsWith(File.separator)) {
             filePath = filePath + File.separator;
         }
-        registry.addResourceHandler("/static/**").addResourceLocations("file:" + filePath);
+        registry.addResourceHandler("/static/upload/**").addResourceLocations("file:" + filePath);
     }
 
 
