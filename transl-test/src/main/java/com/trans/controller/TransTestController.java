@@ -1,5 +1,6 @@
 package com.trans.controller;
 
+import com.trans.aop.TestAnnotation;
 import com.trans.service.IStudentService;
 import com.trans.until.R;
 import io.swagger.annotations.Api;
@@ -30,6 +31,7 @@ public class TransTestController {
 
     @GetMapping("/test/{id}")
     @ApiOperation("根据ID插入学生信息")
+    @TestAnnotation
     public R test(@ApiParam("id编号") @PathVariable("id") Integer id) {
 
         return R.success(studentServiceImpl.insertStudent(id));
