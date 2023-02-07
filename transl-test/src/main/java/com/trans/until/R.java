@@ -32,6 +32,12 @@ public class R<T> implements Serializable {
 
     public int getCode() {
         return this.code;
+
+
+
+
+
+
     }
 
     public void setCode(int code) {

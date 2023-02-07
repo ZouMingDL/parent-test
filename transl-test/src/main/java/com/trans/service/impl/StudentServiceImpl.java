@@ -68,4 +68,16 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }
         return student;
     }
+
+    @Override
+    public Student updateName(Integer id) {
+        Student student = studentMapper.selectById(id);
+        if(ObjectUtil.isNotEmpty(student)){
+            student.setName(ChineseUntil.getRandomChineseName());
+            student.setSex("男");
+            studentMapper.updateById(student);
+            return student;
+        }
+        return null;
+    }
 }

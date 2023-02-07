@@ -25,4 +25,5 @@ public class Student implements Serializable {
 
     private Integer classId;
 
+    private String sex;
 }

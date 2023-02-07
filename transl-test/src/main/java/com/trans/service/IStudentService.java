@@ -19,4 +19,6 @@ public interface IStudentService extends IService<Student> {
     ObsProperties.OssSecret getObs();
 
     Student getFormRedis(String id);
+
+    Student updateName(Integer id);
 }

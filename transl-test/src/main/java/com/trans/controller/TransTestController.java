@@ -43,4 +43,10 @@ public class TransTestController {
 
         return R.success(studentServiceImpl.getObs());
     }
+
+    @GetMapping("updateName/{id}")
+    @ApiOperation("更新名字")
+    public R update(@ApiParam("id编号") @PathVariable("id") Integer id){
+        return R.success(studentServiceImpl.updateName(id));
+    }
 }

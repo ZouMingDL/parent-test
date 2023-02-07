@@ -27,7 +27,7 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         Locale locale = request.getLocale();
-        System.out.println("语言："+locale);
+       // System.out.println("语言："+locale);
         return true;
     }
 
@@ -37,8 +37,8 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 @Nullable Exception ex) throws Exception {
-        System.out.println(new Date()+":"+response);
-        System.out.println(response.getHeader("data"));
+       // System.out.println(new Date()+":"+response);
+       // System.out.println(response.getHeader("data"));
         response.getOutputStream().println();
     }
 
