@@ -47,6 +47,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true #驼峰配置
     default-fetch-size: 10
     default-statement-timeout: 30
+  mapper-locations: classpath*:/com/trans/mapper/xml/*.xml
 
 redis:
   host: localhost

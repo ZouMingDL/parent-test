@@ -7,6 +7,7 @@ import com.trans.until.R;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,13 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "redis测试模块")
 @RestController
 @RequestMapping("v1/redis")
-@RequiredArgsConstructor
 public class RedisTestController {
 
-    private final IRedisTestService redisTestService;
-    private final IStudentService studentService;
+    @Autowired
+    private IStudentService studentService;
 
-    @GetMapping("getById/{id}")
+    @GetMapping("/getById/{id}")
     public R getById(@PathVariable("id") String id){
         Student student = studentService.getFormRedis(id);
         return R.success(student);

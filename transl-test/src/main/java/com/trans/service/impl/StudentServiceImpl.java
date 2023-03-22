@@ -15,6 +15,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * @Author: ZouJiaJun
@@ -79,5 +81,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return student;
         }
         return null;
+    }
+
+    @Override
+    public List<Student> selectByName(List<String> names) {
+
+        List<Student> students = studentMapper.selectByName(names);
+        return students;
     }
 }

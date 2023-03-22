@@ -1,6 +1,9 @@
 package com.trans.controller;
 
 import com.trans.aop.TestAnnotation;
+import com.trans.entity.Child;
+import com.trans.entity.Student;
+import com.trans.entity.Woman;
 import com.trans.service.IStudentService;
 import com.trans.until.R;
 import io.swagger.annotations.Api;
@@ -9,10 +12,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RefreshScope
@@ -28,6 +30,12 @@ public class TransTestController {
 
     @Value("${config.test}")
     private String test;
+
+    @Autowired
+    Woman woman ;
+
+    @Autowired
+    Child child;
 
     @GetMapping("/test/{id}")
     @ApiOperation("根据ID插入学生信息")
@@ -48,5 +56,19 @@ public class TransTestController {
     @ApiOperation("更新名字")
     public R update(@ApiParam("id编号") @PathVariable("id") Integer id){
         return R.success(studentServiceImpl.updateName(id));
+    }
+
+    @GetMapping("/log")
+    @ApiOperation("测试对象")
+    public String log() {
+        System.out.println(woman.getChild());
+        System.out.println(child);
+        return woman.getChild() == child ? "是同一个对象":"不是同一个对象";
+    }
+
+    @PostMapping("/selectByName")
+    @ApiOperation("多个名字查询")
+    public List<Student> selectByName(@RequestBody List<String> names){
+        return studentServiceImpl.selectByName(names);
     }
 }

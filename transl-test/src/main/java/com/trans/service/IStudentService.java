@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.trans.entity.Student;
 import com.trans.until.ObsProperties;
 
+import java.util.List;
+
 /**
  * @Author: ZouJiaJun
  * @Title: StudentService
@@ -21,4 +23,6 @@ public interface IStudentService extends IService<Student> {
     Student getFormRedis(String id);
 
     Student updateName(Integer id);
+
+    List<Student> selectByName(List<String> names);
 }
