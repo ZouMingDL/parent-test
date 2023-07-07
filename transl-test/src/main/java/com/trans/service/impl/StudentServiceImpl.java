@@ -11,11 +11,13 @@ import com.trans.service.IStudentService;
 import com.trans.until.ChineseUntil;
 import com.trans.until.ObsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 /**
@@ -37,6 +39,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
+
+    @Autowired
+    private ExecutorService longLinkExecutor;
 
     @Override
     public Student insertStudent(Integer id) {
@@ -89,4 +94,33 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         List<Student> students = studentMapper.selectByName(names);
         return students;
     }
+
+    @Override
+    public Boolean testLongLink(String stuId) throws ExecutionException, InterruptedException {
+
+        return longLinkExecutor.submit(() ->{
+            return doIt(stuId);
+        }).get();
+    }
+
+    private Boolean checkCondition(String stuId){
+        Student student = studentMapper.selectById(stuId);
+        if(ObjectUtil.isNotEmpty(student) && student.getName().equals("邹铭")){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    public Boolean doIt(String stuId){
+        while (!checkCondition(stuId)){
+            try {
+                // 等待一段时间后再次检查条件
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        return Boolean.TRUE;
+    }
+
 }

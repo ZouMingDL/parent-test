@@ -15,6 +15,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RefreshScope
@@ -70,5 +71,12 @@ public class TransTestController {
     @ApiOperation("多个名字查询")
     public List<Student> selectByName(@RequestBody List<String> names){
         return studentServiceImpl.selectByName(names);
+    }
+
+    @GetMapping("/longLink/{stuId}")
+    @ApiOperation("测试长轮询")
+    public Boolean testLongLink(@PathVariable("stuId") String stuId) throws ExecutionException, InterruptedException {
+        Boolean a =  studentServiceImpl.testLongLink(stuId);
+        return a;
     }
 }

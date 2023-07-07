@@ -5,6 +5,7 @@ import com.trans.entity.Student;
 import com.trans.until.ObsProperties;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @Author: ZouJiaJun
@@ -25,4 +26,6 @@ public interface IStudentService extends IService<Student> {
     Student updateName(Integer id);
 
     List<Student> selectByName(List<String> names);
+
+    Boolean testLongLink(String stuId) throws ExecutionException, InterruptedException;
 }
