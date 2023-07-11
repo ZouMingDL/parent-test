@@ -3,9 +3,11 @@ package com.trans.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.StrUtil;
+import com.trans.service.IStudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,9 @@ public class UploadController {
     @Value("${spring.servlet.multipart.location}")
     private String fileTempPath;
 
+    @Autowired
+    private IStudentService studentServiceImpl;
+
     @PostMapping("/local")
     public Dict loacl(@RequestParam("file")MultipartFile file){
         if(file == null){
@@ -57,5 +62,12 @@ public class UploadController {
         log.info("【文件上传至本地】绝对路径：{}", localFilePath);
         return Dict.create().set("code", 200).set("message", "上传成功").set("data", Dict.create().set("fileName", fileName).set("filePath", localFilePath));
 
+    }
+
+    @PostMapping("/localHutool")
+    public Dict localHutool(@RequestParam("file") MultipartFile file) throws IOException {
+
+        studentServiceImpl.localHutool(file);
+        return Dict.create().set("code",200).set("message","读取成功");
     }
 }

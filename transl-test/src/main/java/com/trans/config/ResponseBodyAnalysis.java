@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
  * @Description:
  * @Date: 2023/1/16 - 15:06
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class ResponseBodyAnalysis implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -43,12 +43,14 @@ public class ResponseBodyAnalysis implements ResponseBodyAdvice<Object> {
             R result = (R) body;
             Object data = result.getData();
             Field[] fields = ReflectUtil.getFields(data.getClass());
-            for (Field field: fields) {
-                TableId annotation = field.getAnnotation(TableId.class);
-                if(annotation == null){
-                    System.out.println(field.getName()+":"+false);
-                }else {
-                    System.out.println(field.getName()+":"+true);
+            if(fields != null){
+                for (Field field: fields) {
+                    TableId annotation = field.getAnnotation(TableId.class);
+                    if(annotation == null){
+                        System.out.println(field.getName()+":"+false);
+                    }else {
+                        System.out.println(field.getName()+":"+true);
+                    }
                 }
             }
         }

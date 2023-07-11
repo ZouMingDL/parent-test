@@ -48,6 +48,9 @@ mybatis-plus:
     default-fetch-size: 10
     default-statement-timeout: 30
   mapper-locations: classpath*:/com/trans/mapper/xml/*.xml
+  global-config:
+    db-config:
+      id-type: auto
 
 redis:
   host: localhost

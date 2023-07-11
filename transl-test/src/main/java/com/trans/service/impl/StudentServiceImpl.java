@@ -2,19 +2,30 @@ package com.trans.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.sax.Excel03SaxReader;
+import cn.hutool.poi.excel.sax.handler.RowHandler;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trans.common.Constant;
+import com.trans.config.DistrictCodeRowHandler;
 import com.trans.entity.Student;
 import com.trans.mapper.StudentMapper;
+import com.trans.service.IDistrictCodeService;
 import com.trans.service.IStudentService;
 import com.trans.until.ChineseUntil;
+import com.trans.until.CustomException;
 import com.trans.until.ObsProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,6 +40,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 
 @Service
+@Slf4j
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements IStudentService {
 
     @Autowired
@@ -42,6 +54,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Autowired
     private ExecutorService longLinkExecutor;
+
+    @Autowired
+    private IDistrictCodeService districtCodeServiceImpl;
 
     @Override
     public Student insertStudent(Integer id) {
@@ -101,6 +116,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return longLinkExecutor.submit(() ->{
             return doIt(stuId);
         }).get();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void localHutool(MultipartFile file) throws IOException {
+        String filename = file.getOriginalFilename();
+        log.info("文件名：{}",filename);
+        ExcelUtil.readBySax(file.getInputStream(), 0, new DistrictCodeRowHandler(districtCodeServiceImpl));
+
     }
 
     private Boolean checkCondition(String stuId){
