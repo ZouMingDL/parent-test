@@ -32,4 +32,6 @@ public interface IStudentService extends IService<Student> {
     Boolean testLongLink(String stuId) throws ExecutionException, InterruptedException;
 
     void localHutool(MultipartFile file) throws IOException;
+
+    void testMergeExcel(MultipartFile file) throws IOException;
 }

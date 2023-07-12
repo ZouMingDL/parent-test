@@ -5,6 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.sax.Excel03SaxReader;
+import cn.hutool.poi.excel.sax.Excel07SaxReader;
 import cn.hutool.poi.excel.sax.handler.RowHandler;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -18,6 +19,8 @@ import com.trans.until.ChineseUntil;
 import com.trans.until.CustomException;
 import com.trans.until.ObsProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
@@ -124,6 +127,30 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         String filename = file.getOriginalFilename();
         log.info("文件名：{}",filename);
         ExcelUtil.readBySax(file.getInputStream(), 0, new DistrictCodeRowHandler(districtCodeServiceImpl));
+
+    }
+
+    @Override
+    public void testMergeExcel(MultipartFile file) throws IOException {
+        String originalFilename = file.getOriginalFilename();
+        System.out.println(originalFilename);
+        RowHandler rowHandler = new RowHandler() {
+
+            @Override
+            public void handle(int sheetIndex, long rowIndex, List<Object> rowCells) {
+                log.info("sheetIndex:{},rowIndex:{},rowCells:{}",sheetIndex,rowIndex,rowCells);
+            }
+        };
+        // 根据文件格式选择相应的SaxReader
+        if (originalFilename.endsWith(".xlsx")) {
+            Excel07SaxReader reader = new Excel07SaxReader(rowHandler);
+            reader.read(file.getInputStream(), 0);
+        } else if (originalFilename.endsWith(".xls")) {
+            Excel03SaxReader reader = new Excel03SaxReader(rowHandler);
+            reader.read(file.getInputStream(), 0);
+        } else {
+            System.out.println("Unsupported file format");
+        }
 
     }
 

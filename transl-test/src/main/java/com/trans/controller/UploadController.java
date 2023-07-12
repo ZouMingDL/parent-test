@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.trans.service.IStudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,8 +67,14 @@ public class UploadController {
 
     @PostMapping("/localHutool")
     public Dict localHutool(@RequestParam("file") MultipartFile file) throws IOException {
-
         studentServiceImpl.localHutool(file);
+        return Dict.create().set("code",200).set("message","读取成功");
+    }
+
+    @ApiOperation("测试合并单元格的数据")
+    @PostMapping("/testMergeExcel")
+    public Dict testMergeExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        studentServiceImpl.testMergeExcel(file);
         return Dict.create().set("code",200).set("message","读取成功");
     }
 }
