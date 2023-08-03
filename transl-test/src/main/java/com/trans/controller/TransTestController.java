@@ -69,8 +69,8 @@ public class TransTestController {
 
     @PostMapping("/selectByName")
     @ApiOperation("多个名字查询")
-    public List<Student> selectByName(@RequestBody List<String> names){
-        return studentServiceImpl.selectByName(names);
+    public List<Integer> selectByName(@RequestBody List<String> names){
+        return studentServiceImpl.seletListByName(names);
     }
 
     @GetMapping("/longLink/{stuId}")

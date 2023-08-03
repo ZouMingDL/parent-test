@@ -16,6 +16,20 @@
         </if>
 
     </select>
+    <select id="selectListByName" resultType="java.lang.Integer">
+        select
+        stu_id
+        from student
+        where name = '邹铭'
+
+        union all
+
+        select
+        stu_id
+        from  student
+        where name = '山陷位';
+
+    </select>
 
 </mapper>
 

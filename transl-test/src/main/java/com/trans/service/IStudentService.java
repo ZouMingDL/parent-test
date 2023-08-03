@@ -34,4 +34,7 @@ public interface IStudentService extends IService<Student> {
     void localHutool(MultipartFile file) throws IOException;
 
     void testMergeExcel(MultipartFile file) throws IOException;
+
+    List<Integer> seletListByName(List<String> names);
+
 }

@@ -18,6 +18,7 @@ import com.trans.service.IStudentService;
 import com.trans.until.ChineseUntil;
 import com.trans.until.CustomException;
 import com.trans.until.ObsProperties;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -152,6 +153,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             System.out.println("Unsupported file format");
         }
 
+    }
+
+    @Override
+    public List<Integer> seletListByName(List<String> names) {
+        List<Integer> list = studentMapper.selectListByName(names);
+        System.out.println(list);
+        return list;
     }
 
     private Boolean checkCondition(String stuId){
