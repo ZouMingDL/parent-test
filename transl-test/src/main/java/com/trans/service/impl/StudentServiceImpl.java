@@ -63,6 +63,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     private IDistrictCodeService districtCodeServiceImpl;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Student insertStudent(Integer id) {
         Student max = studentMapper.selectOne(Wrappers.lambdaQuery(Student.class)
                 .orderByDesc(Student::getStuId)
@@ -74,7 +75,26 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         student.setClassId(2);
         student.setName(ChineseUntil.getRandomChineseName());
         this.save(student);
+
+        makeError(id);
+
+        Student studentA = new Student();
+        studentA.setStuId(student.getStuId()+1);
+        studentA.setAge(RandomUtil.randomInt(6,24));
+        studentA.setClassId(2);
+        studentA.setName(ChineseUntil.getRandomChineseName());
+        this.save(studentA);
         return student;
+    }
+
+    private void makeError( int b) {
+        int a = 3;
+        try {
+            int c= a / b;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new CustomException(e.getMessage());
+        }
     }
 
     @Override
