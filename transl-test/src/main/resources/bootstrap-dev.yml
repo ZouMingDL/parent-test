@@ -40,6 +40,11 @@ spring:
       max-file-size: 100MB
       location: F:\LocalFile
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+
 
 mybatis-plus:
   type-aliases-package: com.trans.entity
@@ -51,11 +56,6 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-
-redis:
-  host: localhost
-  port: 6379
-  database: 0
 
 knife4j:
   basic:
