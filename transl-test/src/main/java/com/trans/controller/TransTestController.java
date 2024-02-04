@@ -79,4 +79,11 @@ public class TransTestController {
         Boolean a =  studentServiceImpl.testLongLink(stuId);
         return a;
     }
+
+    @GetMapping("/testThread")
+    @ApiOperation("测试线程池")
+    public Boolean testThread() throws ExecutionException, InterruptedException {
+        Boolean a =  studentServiceImpl.testThread();
+        return a;
+    }
 }

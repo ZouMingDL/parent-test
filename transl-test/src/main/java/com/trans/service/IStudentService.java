@@ -37,4 +37,6 @@ public interface IStudentService extends IService<Student> {
 
     List<Integer> seletListByName(List<String> names);
 
+    Boolean testThread() throws ExecutionException, InterruptedException;
+
 }

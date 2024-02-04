@@ -2,7 +2,6 @@ package com.trans.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.sax.Excel03SaxReader;
 import cn.hutool.poi.excel.sax.Excel07SaxReader;
@@ -15,24 +14,23 @@ import com.trans.entity.Student;
 import com.trans.mapper.StudentMapper;
 import com.trans.service.IDistrictCodeService;
 import com.trans.service.IStudentService;
+import com.trans.thread.ThreadTestConfig;
 import com.trans.until.ChineseUntil;
 import com.trans.until.CustomException;
 import com.trans.until.ObsProperties;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 /**
@@ -62,9 +60,35 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Autowired
     private IDistrictCodeService districtCodeServiceImpl;
 
+    @Autowired
+    private ThreadTestConfig threadConfig;
+
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public Student insertStudent(Integer id) {
+        Student max = studentMapper.selectOne(Wrappers.lambdaQuery(Student.class)
+                .orderByDesc(Student::getStuId)
+                .last("limit 1"));
+
+        Student student = new Student();
+        student.setStuId(id < max.getStuId()? max.getStuId()+1:id);
+        student.setAge(RandomUtil.randomInt(6,24));
+        student.setClassId(2);
+        student.setName(ChineseUntil.getRandomChineseName());
+        this.save(student);
+
+        makeError(id);
+
+        Student studentA = new Student();
+        studentA.setStuId(student.getStuId()+1);
+        studentA.setAge(RandomUtil.randomInt(6,24));
+        studentA.setClassId(2);
+        studentA.setName(ChineseUntil.getRandomChineseName());
+        this.save(studentA);
+        return student;
+    }
+
+    public Student getStudent(Integer id) {
         Student max = studentMapper.selectOne(Wrappers.lambdaQuery(Student.class)
                 .orderByDesc(Student::getStuId)
                 .last("limit 1"));
@@ -180,6 +204,30 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         List<Integer> list = studentMapper.selectListByName(names);
         System.out.println(list);
         return list;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean testThread() throws ExecutionException, InterruptedException {
+        List<Integer> list = Arrays.asList(100, 101, 102, 103, 104);
+        ThreadPoolTaskExecutor taskExecutor = threadConfig.textProcessExecutor();
+        List<CompletableFuture<Student>> futures = new ArrayList<>();
+        for (Integer a:list) {
+            CompletableFuture<Student> future = CompletableFuture.supplyAsync(() -> {
+                if(a == 103){
+                    throw new CustomException("测试异常");
+                }
+                return getStudent(a);
+            }, taskExecutor);
+            futures.add(future);
+        }
+        ArrayList<Student> students = new ArrayList<>();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).get();
+        for (CompletableFuture<Student> student:futures) {
+            students.add(student.get());
+        }
+        System.out.println(students);
+        return true;
     }
 
     private Boolean checkCondition(String stuId){
